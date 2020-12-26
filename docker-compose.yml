@@ -83,7 +83,7 @@ services:
     volumes:
       - ./conf/adminer/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
   pgadmin:
-    image: dpage/pgadmin4:4.28
+    image: dpage/pgadmin4
     restart: always
     container_name: rho-pgadmin
     logging:

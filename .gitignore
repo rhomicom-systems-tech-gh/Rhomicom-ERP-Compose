@@ -26,3 +26,5 @@ db/pgadmin
 conf/psol/*.tar.gz
 src/RHO_ERP_WEB
 cp_rho_web_to_src.bat
+cp_rho_web_to_src.sh
+src/php-obfuscator-master

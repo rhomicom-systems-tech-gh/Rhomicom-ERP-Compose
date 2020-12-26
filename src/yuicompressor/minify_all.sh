@@ -37,3 +37,10 @@ do
   java -jar yuicompressor-2.4.8.jar --type css -o $file $file
   done
 done
+
+for file in `find ../../db -name "superAdminConfigFile.rhocnfg"`
+do
+echo "Updating jsCssFileVrsn to $(date +%Y%m%d)_$(date +%H%M%S) in $file …"
+sed -i -E "s/,\"jsCssFileVrsn\":\"[^\"]*\",/,\"jsCssFileVrsn\":\"$(date +%Y%m%d)_$(date +%H%M%S)\",/1" $file
+#sed -i -E "s/,\"jsCssFileVrsn\":\"[^\"]*\",/,\"jsCssFileVrsn\":\"$(date +%Y%m%d)_$(date +%H%M%S)\",/g" $file
+done
