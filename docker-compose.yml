@@ -109,6 +109,8 @@ services:
       options:
         max-size: "5m"
         max-file: "5"
+    ports:
+      - 3306:3306
     networks:
       - nt1
     volumes:
