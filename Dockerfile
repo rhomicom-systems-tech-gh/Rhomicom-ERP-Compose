@@ -285,7 +285,7 @@ RUN set -x  \
 ##########################################
 # Combine everything with minimal layers #
 ##########################################
-FROM php:7.4.12-fpm-alpine3.12
+FROM php:7.4.14-fpm-alpine3.13
 LABEL Maintainer="Richard Adjei-Mensah <richarda.mensah@gmail.com>" \
   Description="Lightweight container with Nginx 1.19.4 & PHP-FPM 7.4 based on Alpine Linux (forked from trafex/alpine-nginx-php7)."
 
@@ -323,6 +323,7 @@ ENV PHPIZE_DEPS \
   gcc \
   libc-dev \
   make \
+  cmake \
   pkgconf \
   re2c
 
@@ -364,42 +365,50 @@ RUN apk add --no-cache --update --upgrade --repository http://dl-cdn.alpinelinux
   php-cli php-common php-zip php-gd php7-static php7-dev \ 
   php-xml php-pear php-bcmath php-json php-pdo php-mysqlnd php-pgsql \ 
   php-mbstring  php-soap php-sockets php7-pecl-redis php7-pecl-mcrypt php7-pecl-apcu \
-  php7-json php7-ctype php7-dom php7-exif php7-mysqli php7-iconv php7-fileinfo \
-  php7-pecl-memcache php7-pecl-memcached 
+  php7-json php7-ctype php7-exif php7-mysqli php7-iconv php7-fileinfo \
+  php7-pecl-memcache php7-pecl-memcached php7-dom php7-intl php7-simplexml php7-xmlrpc php7-tokenizer php7-pecl-imagick php7-pecl-apcu
 
-#COPY conf/psol/php-7.4.12.tar.gz /tmp
-RUN cd /tmp && \
-  docker-php-ext-install dom &&\
-  docker-php-ext-install xml &&\
-  wget https://www.php.net/distributions/php-7.4.12.tar.gz && \
-  tar -xzvf php-7.4.12.tar.gz && \
-  cd php-7.4.12/ext/intl && \
-  phpize && \
-  ./configure && \
-  make && \
-  cp .libs/intl.so /usr/lib/php7/modules/ && \
-  echo "extension=intl.so" >> /etc/php7/conf.d/00_intl.ini 
+#COPY conf/psol/php-7.4.14.tar.gz /tmp
+#USER root
+#RUN cd /tmp \
+#  && docker-php-ext-configure dom \
+#  && docker-php-ext-install -j$(nproc) dom \
+#  && docker-php-ext-enable dom \
+#  && docker-php-ext-configure intl \
+#  && docker-php-ext-install intl \
+#  && docker-php-ext-enable intl \
+#  && docker-php-ext-configure xml \
+# && docker-php-ext-install xml\
+#  && docker-php-ext-enable xml \
+#wget https://www.php.net/distributions/php-7.4.14.tar.gz && \
+# tar -xzvf php-7.4.14.tar.gz && \
+# cd php-7.4.14/ext/intl && \
+# phpize && \
+# ./configure && \
+#make && \
+# cp .libs/intl.so /usr/lib/php7/modules/ && \
+# echo "extension=intl.so" >> /etc/php7/conf.d/00_intl.ini 
 
 
-RUN cd /tmp/php-7.4.12/ext/simplexml && \
-  phpize && \
-  ./configure && \
-  make && \
-  cp .libs/simplexml.so /usr/lib/php7/modules/ && \
-  echo "extension=simplexml.so" >> /etc/php7/conf.d/00_simplexml.ini 
-RUN cd /tmp/php-7.4.12/ext/xmlrpc && \
-  phpize && \
-  ./configure && \
-  make && \
-  cp .libs/xmlrpc.so /usr/lib/php7/modules/ && \
-  echo "extension=xmlrpc.so" >> /etc/php7/conf.d/00_xmlrpc.ini 
+#RUN cd /tmp/php-7.4.14/ext/simplexml && \
+#  phpize && \
+#  ./configure && \
+#  make && \
+#  cp .libs/simplexml.so /usr/lib/php7/modules/ && \
+# echo "extension=simplexml.so" >> /etc/php7/conf.d/00_simplexml.ini 
+#RUN cd /tmp/php-7.4.14/ext/xmlrpc && \
+#  phpize && \
+#  ./configure && \
+#  make && \
+#  cp .libs/xmlrpc.so /usr/lib/php7/modules/ && \
+#  echo "extension=xmlrpc.so" >> /etc/php7/conf.d/00_xmlrpc.ini 
 
-RUN cd /tmp/php-7.4.12/ext/tokenizer && \
-  phpize && \
-  ./configure && \
-  make && \
-  cp .libs/tokenizer.so /usr/lib/php7/modules/ && \
-  echo "extension=tokenizer.so" >> /etc/php7/conf.d/00_tokenizer.ini 
+#RUN cd /tmp/php-7.4.14/ext/tokenizer && \
+#  phpize && \
+#  ./configure && \
+#  make && \
+#  cp .libs/tokenizer.so /usr/lib/php7/modules/ && \
+#  echo "extension=tokenizer.so" >> /etc/php7/conf.d/00_tokenizer.ini 
 
 
 RUN apk add --no-cache --update --upgrade --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
@@ -410,11 +419,11 @@ RUN apk add --no-cache 	composer
 #&& docker-php-ext-install intl
 
 ENV PATH="/usr/bin:${PATH}"
-RUN pecl channel-update pecl.php.net
-RUN pecl install redis
-RUN pecl install memcached
-RUN pecl install APCu
-RUN pecl install imagick 
+#RUN pecl channel-update pecl.php.net
+#RUN pecl install redis
+#RUN pecl install memcached
+#RUN pecl install APCu
+#RUN pecl install imagick 
 #RUN docker-php-ext-enable memcached \
 #  && docker-php-ext-enable redis \
 #  && docker-php-ext-enable dom \

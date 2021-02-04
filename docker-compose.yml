@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   nginx:
-    image: rhomicom/rho-erp-base:v1.2
+    image: rhomicom/rho-erp-base:latest
     container_name: rho-nginx
     logging:
       driver: "json-file"
