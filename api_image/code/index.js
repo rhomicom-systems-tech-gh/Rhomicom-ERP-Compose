@@ -28,7 +28,6 @@ app.get('/', (req, res) => {
   //res.sendFile(path.join(__dirname + '/static/index.html'));
 });
 
-
 app.use((request, response, next) => {
   return next(createError(404, 'File not found'));
 });

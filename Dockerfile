@@ -285,7 +285,7 @@ RUN set -x  \
 ##########################################
 # Combine everything with minimal layers #
 ##########################################
-FROM php:7.4.14-fpm-alpine3.13
+FROM php:7.4.19-fpm-alpine3.13
 LABEL Maintainer="Richard Adjei-Mensah <richarda.mensah@gmail.com>" \
   Description="Lightweight container with Nginx 1.19.4 & PHP-FPM 7.4 based on Alpine Linux (forked from trafex/alpine-nginx-php7)."
 
@@ -294,7 +294,7 @@ ENV fpm_conf /etc/php7/php-fpm.d/www.conf
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
-ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
+#ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 RUN apk update 
 RUN apk add --no-cache --update --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
   --upgrade openssl-dev ca-certificates \
@@ -365,8 +365,9 @@ RUN apk add --no-cache --update --upgrade --repository http://dl-cdn.alpinelinux
   php-cli php-common php-zip php-gd php7-static php7-dev \ 
   php-xml php-pear php-bcmath php-json php-pdo php-mysqlnd php-pgsql \ 
   php-mbstring  php-soap php-sockets php7-pecl-redis php7-pecl-mcrypt php7-pecl-apcu \
-  php7-json php7-ctype php7-exif php7-mysqli php7-iconv php7-fileinfo \
-  php7-pecl-memcache php7-pecl-memcached php7-dom php7-intl php7-simplexml php7-xmlrpc php7-tokenizer php7-pecl-imagick php7-pecl-apcu
+  php7-json php7-ctype php7-exif php7-mysqli php7-iconv php7-fileinfo php7-pdo_mysql \
+  php7-pecl-memcache php7-pecl-memcached php7-dom php7-intl php7-simplexml php7-xmlrpc \
+  php7-tokenizer php7-pecl-imagick php7-pecl-apcu php7-ftp
 
 #COPY conf/psol/php-7.4.14.tar.gz /tmp
 #USER root

@@ -41,8 +41,10 @@ services:
     command: redis-server --appendonly yes
     networks:
       - nt1
+    ports:
+      - 6379:6379
   pgdb:
-    image: postgres:12.4-alpine #postgres:13.0-alpine
+    image: postgres:13.3-alpine  #postgres:12.4-alpine #
     restart: always
     container_name: rho-pgdb
     logging:
@@ -83,7 +85,7 @@ services:
     volumes:
       - ./conf/adminer/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     restart: always
     container_name: rho-pgadmin
     logging:

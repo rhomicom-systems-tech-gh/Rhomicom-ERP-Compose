@@ -174,10 +174,10 @@ docker login
 
 docker buildx create --driver-opt env.BUILDKIT_STEP_LOG_MAX_SIZE=-1 --driver-opt env.BUILDKIT_STEP_LOG_MAX_SPEED=-1 --use
 
-docker build -t rhomicom/rho-erp-base:v1.3 .
-docker push rhomicom/rho-erp-base:v1.3
+docker build -t rhomicom/rho-erp-base:v1.5 .
+docker push rhomicom/rho-erp-base:v1.5
 
-docker tag rhomicom/rho-erp-base:v1.3 rhomicom/rho-erp-base:latest
+docker tag rhomicom/rho-erp-base:v1.5 rhomicom/rho-erp-base:latest
 docker push rhomicom/rho-erp-base:latest
 
-docker run -d -p 8005:8080 rhomicom/rho-erp-base:v1.2
+docker run -d -p 8005:8080 rhomicom/rho-erp-base:v1.5
